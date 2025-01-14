@@ -49,11 +49,13 @@ There are several tools online you can use, I'd recommend [Draw.io](https://www.
 
 **HINT:** You do not need to create any data for this prompt. This is a conceptual model only.
 
-![Alt Text](02_activities/assignments/assignment2_logical_model_prompt_1.png)
+![Logical model prompt 1](assignment2_logical_model_prompt_1.png)
 
 #### Prompt 2
 
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+
+![Logical model prompt 2](assignment2_logical_model_prompt_2.png)
 
 #### Prompt 3
 
@@ -61,8 +63,22 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 
 **HINT:** search type 1 vs type 2 slowly changing dimensions.
 
+Option 1: Retain changes
+
+Option 1: Retain changes
+
 ```
-Your answer...
+Table Customer_Address {
+  AddressID integer [primary key]
+  CustomerID integer
+  Address varchar
+  City varchar
+  State varchar
+  ZipCode varchar
+  Country varchar
+  StartDate date
+  EndDate date [nullable] -- Null indicates the current address
+}
 ```
 
 ---
@@ -87,9 +103,11 @@ Steps to complete this part of the assignment:
 Using the following syntax you create our super cool and not at all needy manager a list:
 
 ```
+
 SELECT
 product_name || ', ' || product_size|| ' (' || product_qty_type || ')'
 FROM product
+
 ```
 
 But wait! The product table has some bad data (a few NULL values).
@@ -175,10 +193,16 @@ Steps to complete this part of the assignment:
 1. We want to add the current_quantity to the product_units table. First, add a new column, `current_quantity` to the table using the following syntax.
 
 ```
+
 ALTER TABLE product_units
 ADD current_quantity INT;
+
 ```
 
 Then, using `UPDATE`, change the current_quantity equal to the **last** `quantity` value from the vendor_inventory details.
 
 **HINT**: This one is pretty hard. First, determine how to get the "last" quantity per product. Second, coalesce null values to 0 (if you don't have null values, figure out how to rearrange your query so you do.) Third, `SET current_quantity = (...your select statement...)`, remembering that WHERE can only accommodate one column. Finally, make sure you have a WHERE statement to update the right row, you'll need to use `product_units.product_id` to refer to the correct row within the product_units table. When you have all of these components, you can run the update statement.
+
+```
+
+```
