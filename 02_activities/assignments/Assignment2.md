@@ -63,22 +63,37 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 
 **HINT:** search type 1 vs type 2 slowly changing dimensions.
 
-Option 1: Retain changes
-
-Option 1: Retain changes
+Architecture 1: Retain changes
 
 ```
-Table Customer_Address {
-  AddressID integer [primary key]
-  CustomerID integer
-  Address varchar
-  City varchar
-  State varchar
-  ZipCode varchar
-  Country varchar
-  StartDate date
-  EndDate date [nullable] -- Null indicates the current address
-}
+-- Type 2 SCD: CUSTOMER_ADDRESS_RETAIN
+CREATE TABLE CUSTOMER_ADDRESS_RETAIN (
+    AddressID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT,
+    StreetAddress VARCHAR(255),
+    City VARCHAR(100),
+    Province VARCHAR(100),
+    Country VARCHAR(100),
+    PostalCode VARCHAR(20),
+    ValidFrom DATE,
+    ValidTo DATE,
+    IsCurrentAddress BOOLEAN
+);
+```
+
+Architecture 2: Overwrite changes
+
+```
+-- Type 1 SCD: CUSTOMER_ADDRESS_OVERWRITE
+CREATE TABLE CUSTOMER_ADDRESS_OVERWRITE (
+    CustomerID INT PRIMARY KEY,
+    StreetAddress VARCHAR(255),
+    City VARCHAR(100),
+    Province VARCHAR(100),
+    Country VARCHAR(100),
+    PostalCode VARCHAR(20),
+    LastModified DATE
+);
 ```
 
 ---
