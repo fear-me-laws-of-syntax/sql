@@ -66,7 +66,7 @@ The store wants to keep customer addresses. Propose two architectures for the CU
 Architecture 1: Retain changes
 
 ```
--- Type 2 SCD: CUSTOMER_ADDRESS_RETAIN
+-- Type 2: CUSTOMER_ADDRESS_RETAIN
 CREATE TABLE CUSTOMER_ADDRESS_RETAIN (
     AddressID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerID INT,
@@ -84,7 +84,7 @@ CREATE TABLE CUSTOMER_ADDRESS_RETAIN (
 Architecture 2: Overwrite changes
 
 ```
--- Type 1 SCD: CUSTOMER_ADDRESS_OVERWRITE
+-- Type 1: CUSTOMER_ADDRESS_OVERWRITE
 CREATE TABLE CUSTOMER_ADDRESS_OVERWRITE (
     CustomerID INT PRIMARY KEY,
     StreetAddress VARCHAR(255),
